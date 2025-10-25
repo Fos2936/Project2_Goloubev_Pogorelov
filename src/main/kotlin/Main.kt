@@ -11,11 +11,11 @@ fun fillingMatrix(matrix: Array<DoubleArray>) {
 fun main(args: Array<String>) {
     while (true) {
         println(
-             "1) Task 1.\n" +
-             "2) Task 2.\n" +
-             "3) Task 3.\n" +
-             "4) Task 4.\n" +
-             "5) Task 5."
+            "1) Task 1.\n" +
+                    "2) Task 2.\n" +
+                    "3) Task 3.\n" +
+                    "4) Task 4.\n" +
+                    "5) Task 5."
         )
         print("Выбор: ")
         val choice = readln().toIntOrNull()
