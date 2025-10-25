@@ -1,13 +1,34 @@
-fun fillingMatrix(matrix: Array<DoubleArray>) {
-    for (i in 0.. matrix.size - 1) {
-        println("Строка $i: ")
-        for (j in 0.. matrix[0].size - 1) {
-
-
+fun fillingMatrix(matrix: Array<IntArray>) {
+    for (i in 0 until matrix.size) {
+        println("Строка ${i + 1}: ")
+        for (j in 0 until matrix[0].size) {
+            val number = readln().toInt()
+            matrix[i][j] = number
         }
         println()
     }
 }
+
+fun printMatrix(matrix: Array<IntArray>) {
+    for (i in 0 until matrix.size) {
+        for (j in 0 until matrix[0].size) {
+            print("${matrix[i][j]} \t")
+        }
+        println()
+    }
+}
+
+fun task1(matrix: Array<IntArray>) : Int {
+    val unique = 0
+    for (i in 0 until matrix.size) {
+        for (j in 0 until matrix[0].size) {
+
+        }
+    }
+
+    return unique
+}
+
 fun main(args: Array<String>) {
     while (true) {
         println(
@@ -28,10 +49,12 @@ fun main(args: Array<String>) {
                 val columns = readln().toIntOrNull()
 
                 if (rows != null && columns != null && rows > 0 && columns > 0) {
-                    val matrix = Array(rows) { DoubleArray(columns) }
+                    val matrix = Array(rows) { IntArray(columns) }
                     println("Введите различные трёхзначные числа (числа могут повторяться): ")
                     fillingMatrix(matrix);
 
+                    println("Исходная матрица:")
+                    printMatrix(matrix)
                 } else {
                     println("Некорректный ввод: введите положительные целые числа.")
                 }
