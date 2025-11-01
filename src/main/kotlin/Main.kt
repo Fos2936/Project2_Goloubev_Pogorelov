@@ -41,10 +41,15 @@ fun task1(matrix: Array<IntArray>) : Int {
 }
 
 fun checkingSimm (matrix: Array<Array<Int>>) : Boolean {
-    return matrix[1][0] == matrix[0][1] &&
-           matrix[2][0] == matrix[0][2] &&
-           matrix[3][0] == matrix[0][3] &&
-           matrix[4][0] == matrix[0][4]
+    var count = 0;
+    for (i in 0 until matrix.size) {
+        for (j in 0 until matrix.size) {
+            if (matrix[i][j] == matrix[j][i]) {
+                count++
+            }
+        }
+    }
+   return if (count == 10) true else false
 }
 
 fun main() {
@@ -102,6 +107,12 @@ fun main() {
             }
 
             3 -> {
+                val counter = arrayOf(
+                    21, 13, 4, 20, 22, 1, 25, 12, 24, 14, 2, 28, 9, 23, 3, 29, 6, 16,
+                    15, 11, 26, 5, 30, 27, 8, 18, 10, 33, 31, 32, 19, 7, 17
+                )
+                val russianAlphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+                val alphabetMap = counter.zip(russianAlphabet.toList()).toMap()
 
             }
 
