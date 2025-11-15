@@ -155,6 +155,42 @@ fun task3() {
 }
 
 
+fun task4() {
+    print("Введите размерность 1-го массива: ")
+    val size1 = readln().toInt()
+    val intList1 = mutableListOf<Int>()
+    println("Числа 1-го массива: ")
+    for (i in 0 until size1) {
+        val numbers1 = readln().toInt()
+        intList1.add(numbers1)
+    }
+    print("Введите размерность 2-го массива: ")
+    val size2 = readln().toInt()
+    val intList2 = mutableListOf<Int>()
+    println("Числа 2-го массива: ")
+    for (i in 0 until size2) {
+        val numbers2 = readln().toInt()
+        intList2.add(numbers2)
+    }
+
+    println("Массив 1: $intList1")
+    println("Массив 2: $intList2")
+
+    val intersectionList = mutableListOf<Int>()
+    // Создаем копию второго списка, чтобы удалять из него найденные элементы
+    val mutableList2 = intList2.toMutableList()
+
+    for (number in intList1) {
+        if (mutableList2.contains(number)) {
+            intersectionList.add(number)
+            mutableList2.remove(number)
+        }
+    }
+
+    println("Пересечение массивов: $intersectionList")
+}
+
+
 fun task5() {
     print("Сколько слов вы введёте: ")
     val count = readln().toInt()
@@ -164,20 +200,15 @@ fun task5() {
         val words = readln()
         wordList.add(words)
     }
-    print(wordList)
-
-    val generalList = mutableListOf<Char>()
-    for (word in wordList) {
-        val characters: List<Char> = word.toList()
-        println("Слово '$word' состоит из символов: $characters")
-        for (char in characters) {
-            println(" -> Символ: $char")
-        }
-        generalList.addAll(characters)
+    println(wordList)
+    val groupedByLetters = wordList.groupBy { word ->
+        word.lowercase().toCharArray().sorted().joinToString("")
     }
 
-    print(generalList)
-
+    groupedByLetters.forEach {  group ->
+        println("Группа слов: $group")
+        println("-" .repeat(20))
+    }
 }
 
 fun showMenu() {
@@ -195,9 +226,9 @@ fun showMenu() {
                     "Программа шифрует и дешифрует строковое выражение (т.е. программа спрашивает - зашифровать или расшифровать текст и ключевое слово)." +
                     "Первый массив считается закольцованным. Регистр букв не имеет значения.\n\n" +
 
-                    "4) Task 4.\n\n" +
+                    "4) Программа принимает 2 массива, введённых пользователем. На выходе приложение выдаёт пересечение этих массивов.\n\n" +
 
-                    "5) Task 5."
+                    "5) Программа принимает массив, введённым пользователем (сам массив состоит из различных слов). На выходе приложение должно показать слова сгруппированные по признаку \"состоят из одинаковых букв\"."
         )
         print("Выбор: ")
         val choice = readln().toIntOrNull()
@@ -205,9 +236,7 @@ fun showMenu() {
             1 -> task1()
             2 -> task2()
             3 -> task3()
-            4 -> {
-
-            }
+            4 -> task4()
             5 -> task5()
             else -> println("Такого пункта нет")
         }
