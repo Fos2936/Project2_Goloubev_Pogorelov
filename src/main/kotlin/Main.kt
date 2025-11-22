@@ -9,7 +9,9 @@ val values = listOf(
 // associate - функция для преобзазования коллекции в Map
 val alphabetToValueMap = alphabet.indices.associate { i -> alphabet[i] to values[i] }
 
+// entries - свойство, возращающее неизменяемый список всех элементов перечисления в порядке их объявления
 val valueToAlphabetMap = alphabetToValueMap.entries.associate { it.value to it.key }
+
 fun task1() {
     fun fillingMatrix(matrix: Array<IntArray>) {
         for (i in 0 until matrix.size) {

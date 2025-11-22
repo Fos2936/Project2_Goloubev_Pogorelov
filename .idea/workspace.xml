@@ -108,19 +108,4 @@
     <MESSAGE value="v1" />
     <option name="LAST_COMMIT_MESSAGE" value="v1" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-function">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/Main.kt</url>
-          <line>73</line>
-          <properties method="task2">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
 </project>
