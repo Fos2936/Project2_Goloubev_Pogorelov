@@ -5,10 +5,11 @@ val values = listOf(
     30, 27, 8, 18, 10, 33, 31, 32, 19, 7, 17
 )
 
+// indices - свойство, возращающее объект IntRange от 0 до size - 1
+// associate - функция для преобзазования коллекции в Map
 val alphabetToValueMap = alphabet.indices.associate { i -> alphabet[i] to values[i] }
 
 val valueToAlphabetMap = alphabetToValueMap.entries.associate { it.value to it.key }
-
 fun task1() {
     fun fillingMatrix(matrix: Array<IntArray>) {
         for (i in 0 until matrix.size) {
@@ -31,6 +32,8 @@ fun task1() {
     fun printMatrix(matrix: Array<IntArray>) {
         for (i in 0 until matrix.size) {
             for (j in 0 until matrix[0].size) {
+                // padStart() - метод расширения для строк, дополняющий строку символами в начале до достижения заданной длины
+                // Например, val str = "123"; val padStr = str.padStart(6, '0'); -> "000123"
                 print("${matrix[i][j].toString().padStart(3, '0')}\t")
             }
             println()
@@ -56,7 +59,7 @@ fun task1() {
     if (rows != null && columns != null && rows > 0 && columns > 0) {
         val matrix = Array(rows) { IntArray(columns) }
         println("Введите различные трёхзначные числа (числа могут повторяться): ")
-        fillingMatrix(matrix);
+        fillingMatrix(matrix)
 
         println("Исходная матрица:")
         printMatrix(matrix)
@@ -68,11 +71,11 @@ fun task1() {
     }
 }
 
-
 fun task2() {
     fun isSymmetric(matrix: Array<Array<Int>>): Boolean {
-        for (i in matrix.indices) {
-            for (j in i + 1 until matrix.size) {
+        val size = 5
+        for (i in 0 until size) {
+            for (j in i + 1 until size) {
                 if (matrix[i][j] != matrix[j][i]) return false
             }
         }
@@ -87,7 +90,6 @@ fun task2() {
     }
     println(if (isSymmetric(matrix)) "Матрица симметрична." else "Матрица не симметрична.")
 }
-
 
 fun task3() {
     fun isRussianLetters(input: String): Boolean {
@@ -105,7 +107,6 @@ fun task3() {
         } while (!isRussianLetters(result))
         return result
     }
-
     fun encrypt(
         secretWord: List<Pair<Char, Int>>,
         text: List<Pair<Char, Int>>
@@ -131,6 +132,7 @@ fun task3() {
 
     print("Ключевое слово: ")
     val secret = inputWord()
+    // !! - оператор принудительного извлечения
     val secretValues: List<Pair<Char, Int>> = secret.map { it to alphabetToValueMap[it]!! }
 
     print("Исходный текст: ")
@@ -144,40 +146,75 @@ fun task3() {
     } while (mode != 'e' && mode != 'd')
 
     val repeatedSecret = List(textValues.size) { index -> secretValues[index % secretValues.size] }
-    val result = if (mode == 'e') {
-        encrypt(repeatedSecret, textValues)
-    } else {
-        decrypt(repeatedSecret, textValues)
-    }
+    val result =
+        if (mode == 'e') {
+            encrypt(repeatedSecret, textValues)
+        } else {
+            decrypt(repeatedSecret, textValues)
+        }
 
     val resultString = result.joinToString("") { it.first.toString() }
     println("Результат: $resultString")
 }
 
-
 fun task4() {
-    print("Введите размерность 1-го массива: ")
-    val size1 = readln().toInt()
+    fun readPositiveInt(prompt: String): Int? {
+        print(prompt)
+        val input = readlnOrNull() ?: return null
+        if (input.isEmpty() || !input.all { it.isDigit() }) return null
+        val value = input.toIntOrNull() ?: return null
+        return if (value > 0) value else null
+    }
+
+    fun readIntWithValidation(prompt: String): Int? {
+        print(prompt)
+        val input = readlnOrNull() ?: return null
+        if (input.isEmpty() || input.contains(Regex("[^0-9-]"))) return null
+        return input.toIntOrNull()
+    }
+
+    val size1 = readPositiveInt("Введите размерность 1-го массива: ")
+    if (size1 == null) {
+        println("Ошибка: Введите положительное целое число для размерности 1-го массива")
+        return
+    }
+
     val intList1 = mutableListOf<Int>()
     println("Числа 1-го массива: ")
     for (i in 0 until size1) {
-        val numbers1 = readln().toInt()
-        intList1.add(numbers1)
+        var number: Int?
+        do {
+            number = readIntWithValidation("Введите число ${i + 1}: ")
+            if (number == null) {
+                println("Ошибка: Введите целое число")
+            }
+        } while (number == null)
+        intList1.add(number)
     }
-    print("Введите размерность 2-го массива: ")
-    val size2 = readln().toInt()
+
+    val size2 = readPositiveInt("Введите размерность 2-го массива: ")
+    if (size2 == null) {
+        println("Ошибка: Введите положительное целое число для размерности 2-го массива")
+        return
+    }
+
     val intList2 = mutableListOf<Int>()
     println("Числа 2-го массива: ")
     for (i in 0 until size2) {
-        val numbers2 = readln().toInt()
-        intList2.add(numbers2)
+        var number: Int?
+        do {
+            number = readIntWithValidation("Введите число ${i + 1}: ")
+            if (number == null) {
+                println("Ошибка: Введите целое число")
+            }
+        } while (number == null)
+        intList2.add(number)
     }
 
     println("Массив 1: $intList1")
     println("Массив 2: $intList2")
 
     val intersectionList = mutableListOf<Int>()
-    // Создаем копию второго списка, чтобы удалять из него найденные элементы
     val mutableList2 = intList2.toMutableList()
 
     for (number in intList1) {
@@ -189,25 +226,48 @@ fun task4() {
 
     println("Пересечение массивов: $intersectionList")
 }
-
-
 fun task5() {
-    print("Сколько слов вы введёте: ")
-    val count = readln().toInt()
+    fun readPositiveInt(prompt: String): Int? {
+        print(prompt)
+        val input = readlnOrNull() ?: return null
+        if (input.isEmpty() || !input.all { it.isDigit() }) return null
+        val value = input.toIntOrNull() ?: return null
+        return if (value > 0) value else null
+    }
+
+    fun readNonEmptyString(prompt: String): String? {
+        print(prompt)
+        val input = readlnOrNull() ?: return null
+        return if (input.isNotEmpty()) input else null
+    }
+
+    val count = readPositiveInt("Сколько слов вы введёте: ")
+    if (count == null) {
+        println("Ошибка: Введите положительное целое число для количества слов")
+        return
+    }
+
     println("Введите различные слова: ")
     val wordList = mutableListOf<String>()
     for (i in 0 until count) {
-        val words = readln()
-        wordList.add(words)
+        var word: String?
+        do {
+            word = readNonEmptyString("Введите слово ${i + 1}: ")
+            if (word == null) {
+                println("Ошибка: Слово не может быть пустым")
+            }
+        } while (word == null)
+        wordList.add(word)
     }
+
     println(wordList)
     val groupedByLetters = wordList.groupBy { word ->
         word.lowercase().toCharArray().sorted().joinToString("")
     }
 
-    groupedByLetters.forEach {  group ->
-        println("Группа слов: $group")
-        println("-" .repeat(20))
+    groupedByLetters.forEach { group ->
+        println("Группа слов: ${group.value}")
+        println("-".repeat(20))
     }
 }
 
@@ -217,17 +277,13 @@ fun showMenu() {
             "1) Программа запрашивает количество строк и столбцов для двухмерного массива." +
                     "Пользователь вводит необходимое количество трёхзначных чисел (числа могут повторяться)." +
                     "Происходит подсчёт различных цифр в полученном массиве и на консоль выводится двумерный массив из введённых чисел и количество различных цифр используемых  в данном массиве.\n\n" +
-
                     "2) Программа создаёт квадратную матрицу разменостью 5 и определяет симметрична ли она относительно главной диагонали, т.е. - элемент (1, 2) = (2, 1), элемент (1, 3) = (3, 1) и т.д.\n\n" +
-
                     "3) Программа создаёт массив, содержащий символы русского алфавита. Символы алфавита нумеруются от 1 до 33." +
                     "Каждое число используется только один раз. Сообщение шифруется с помощью ключевого слова, задаваемого пользователем." +
                     "Номер символа ключевого слова показывает, на сколько нужно сдвинуться по массиву из символов русского алфавита." +
                     "Программа шифрует и дешифрует строковое выражение (т.е. программа спрашивает - зашифровать или расшифровать текст и ключевое слово)." +
                     "Первый массив считается закольцованным. Регистр букв не имеет значения.\n\n" +
-
                     "4) Программа принимает 2 массива, введённых пользователем. На выходе приложение выдаёт пересечение этих массивов.\n\n" +
-
                     "5) Программа принимает массив, введённым пользователем (сам массив состоит из различных слов). На выходе приложение должно показать слова сгруппированные по признаку \"состоят из одинаковых букв\"."
         )
         print("Выбор: ")
@@ -245,7 +301,6 @@ fun showMenu() {
         if (readln().trim().firstOrNull() == 'n') break
     }
 }
-
 
 fun main() {
     showMenu()
