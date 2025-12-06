@@ -299,9 +299,5 @@ fun showMenu() {
 }
 
 fun main() {
-    // showMenu()
-    val mesaage = "1 2 3 "
-    println(mesaage.trim())
-    val uniqueDigits = mutableSetOf<Char>('5', '5')
-    println(uniqueDigits)
+    showMenu()
 }
