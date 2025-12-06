@@ -90,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1763210937704</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="v1">
+      <created>1763813596357</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1763813596357</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -107,5 +114,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="v1" />
     <option name="LAST_COMMIT_MESSAGE" value="v1" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Project2_Golubev_Pogorelov$MainKt.ic" NAME="MainKt Coverage Results" MODIFIED="1765023169062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
